@@ -1,0 +1,131 @@
+<html>
+<head></head>
+<body>
+  <h1>Feather a friend</h1>
+
+  <form id="donation-form">
+    <label for="amount">Amount</label>
+    $<input type="number" id="amount" pattern="[0-9]*" min="1" step="1"></input>
+    <button type="button" id="donate">Donate</button>
+  </form>
+
+  <form id="download-form" action="lovepacs-feather-a-friend.pdf" target="_blank" style="display:none">
+    <button type="submit">Download</button>
+  </form>
+
+  <h3>$<span id="calculated-amount"></span> = <span id="calculated-feathers"></span> feathers</h3>
+
+  <h2>Your donation will help feed hungry kids in Frisco</h2>
+
+  <h2>How does feathering a friend work?</h2>
+  <ul>
+    <li>Donate</li>
+    <li>Print off the forms</li>
+    <li>Add a feather to your turkey</li>
+    <li>Feather your friends, family, neighbors</li>
+  </ul>
+
+
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      var FEATHER_COST = 5.00;
+      var CHARGE_DESCRIPTION = "Feathers for friends"
+
+      var lovepacsStripe = StripeCheckout.configure({
+        key: "pk_test_Cdnp4m36AXNcBVaZISSFwjZ1",
+        image: "/assets/images/lovepacs-checkout-logo.png",
+        name: "LovePacs",
+        locale: "auto",
+        token: checkoutComplete
+      });
+
+      var $downloadForm = $("#download-form");
+      var $donationForm = $("#donation-form");
+      var $amount = $("#amount");
+      var $donate = $("#donate");
+      var $calculatedAmount = $("#calculated-amount");
+      var $calculatedFeathers = $("#calculated-feathers");
+
+      function getAmount() {
+        return _.round($amount.val(), 0);
+      }
+
+      function calculateFeatherCount(dollarAmount) {
+        return _.ceil(dollarAmount / FEATHER_COST);
+      }
+
+      function getStripeData(amount, token) {
+        var data = {}
+        data.description = CHARGE_DESCRIPTION;
+        data.amount = amount * 100;
+
+        if (token) {
+          data.source = token.id;
+          data.receipt_email = token.email;
+        }
+
+        return data;
+      }
+
+      function submitPayment(token) {
+        var amount = getAmount();
+        var data = getStripeData(amount, token);
+
+        return $.ajax({
+          type: "POST",
+          url: "/payment",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify(data)
+        });
+      }
+
+      function displayDownload() {
+        $donationForm.hide();
+        $downloadForm.show();
+      }
+
+      function checkoutComplete(token) {
+        submitPayment(token).then(displayDownload);
+      }
+
+      function paymentDialogClose () {
+        lovepacsStripe.close();
+      }
+
+      function donateClick(e) {
+        var amount = getAmount();
+        var data = getStripeData(amount);
+        lovepacsStripe.open(data);
+        e.preventDefault();
+      }
+
+      function amountChange() {
+        var amount = getAmount();
+        if (amount === $amount.val()) {
+          return;
+        }
+
+        var featherCount = calculateFeatherCount(amount);
+        $calculatedAmount.text(amount);
+        $calculatedFeathers.text(featherCount);
+        $amount.val(amount);
+      }
+
+      function init() {
+        $(window).on("popstate", paymentDialogClose);
+        $amount.on("change", amountChange);
+        $donate.on("click", donateClick);
+        $amount.val(FEATHER_COST);
+        amountChange();
+      }
+
+      init();
+    });
+  </script>
+</body>
+</html>
