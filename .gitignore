@@ -1,0 +1,15 @@
+# Project specific
+stripe.json
+
+# Common
+node_modules/
+bower_components/
+
+# OS & project generated
+*.orig
+*.log
+.log
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
