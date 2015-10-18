@@ -1,29 +1,93 @@
-<html>
-<head></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+</head>
 <body>
-  <h1>Feather a friend</h1>
+  <div class="container-fluid">
 
-  <form id="donation-form">
-    <label for="amount">Amount</label>
-    $<input type="number" id="amount" pattern="[0-9]*" min="1" step="1"></input>
-    <button type="button" id="donate">Donate</button>
-  </form>
+    <div class="row">
+      <div class="col-xs-2">
+        <img src="http://placehold.it/100x100" />
+      </div>
+      <div class="col-xs-8 text-center">
+        <h1>Feather a Friend</h1>
+      </div>
+      <div class="col-xs-2">
+        <img src="http://placehold.it/100x100" />
+      </div>
+    </div>
 
-  <form id="download-form" action="lovepacs-feather-a-friend.pdf" target="_blank" style="display:none">
-    <button type="submit">Download</button>
-  </form>
+    <div class="row">
+      <div class="col-xs-12 col-lg-6">
 
-  <h3>$<span id="calculated-amount"></span> = <span id="calculated-feathers"></span> feathers</h3>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <h2>To share the love (and some food) donate now</h2>
+          </div>
+        </div>
 
-  <h2>Your donation will help feed hungry kids in Frisco</h2>
+        <div class="row">
+          <form id="single-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - single child donation" data-stripe-amount="75">
+            <img src="http://placehold.it/175x300" />
+            <button type="submit" class="btn btn-success">$75</button><br />
+            <span>Feeds one child</span>
 
-  <h2>How does feathering a friend work?</h2>
-  <ul>
-    <li>Donate</li>
-    <li>Print off the forms</li>
-    <li>Add a feather to your turkey</li>
-    <li>Feather your friends, family, neighbors</li>
-  </ul>
+          </form>
+          <form id="family-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - family donation" data-stripe-amount="150">
+            <img src="http://placehold.it/175x300" />
+            <button type="submit" class="btn btn-success">$150</button><br />
+            <span>Feeds multiple children<br />in the same family</span>
+
+          </form>
+          <form id="other-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - other donation">
+            <img src="http://placehold.it/175x300" />
+            <button type="submit" class="btn btn-success">Other amount</button><br />
+            <span>Any gift helps</span>
+            <input type="numeric" pattern="[0-9]*" min="1" step="1" data-stripe-amount></input>
+          </form>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <h4>Your donation will provide food to local children in the Frisco area who would be at risk of not having enough to eat over the holiday break when the schools are not providing meals.</h4>
+            <a href="http://www.lovepacs.org/needs.html">Visit the Lovepacs info page to learn more about the needs in Frisco</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-lg-6">
+        <h2>How it works</h2>
+        <div>
+          <img src="http://placehold.it/100x100" />
+          Donate in honor of a friend or family member
+        </div>
+
+        <div>
+          <img src="http://placehold.it/100x100" />
+          Download and print a turkey and two feathers
+        </div>
+
+        <div>
+          <img src="http://placehold.it/100x100" />
+          Keep the turkey and attach your feather to remember that special person
+        </div>
+
+        <div>
+          <img src="http://placehold.it/100x100" />
+          Take the other feather and give it to your friend along with directions on how to keep sharing the love (and food) this holiday season
+        </div>
+
+        <div>
+          <img src="http://placehold.it/100x100" />
+          Help Lovepacs end hunger for children in the Frisco area while letting your friends know you appreciate them
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <script src="https://checkout.stripe.com/checkout.js"></script>
@@ -31,100 +95,101 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 
   <script>
-    $(document).ready(function() {
-      var FEATHER_COST = 5.00;
-      var CHARGE_DESCRIPTION = "Feathers for friends"
+    function stripeForm ($form, config) {
+      var stripeInstance;
+      var stripeConfig;
 
-      var lovepacsStripe = StripeCheckout.configure({
+      function registerForm($form) {
+        $form.on("submit", displayCheckoutDialog);
+      }
+
+      function displayCheckoutDialog(e) {
+        var data = {
+          description: getDescription(),
+          amount: getAmount()
+        };
+
+        // Only display the payment dialog if the
+        // charge amount is at least a $1.00
+        if (data.amount >= 100) {
+          stripeInstance.open(data);
+        }
+
+        e.preventDefault();
+      }
+
+      function tokenCreated(token) {
+        submitPayment(token).then(config.token);
+      }
+
+      function submitPayment(token) {
+        var chargeConfig = _.defaults(stripeConfig.charge, {
+          type: "POST",
+          contentType: "application/json",
+          dataType: "json",
+        });
+        var data = {
+          description: getDescription(),
+          amount: getAmount(),
+          source: token.id,
+          receipt_email: token.email
+        };
+
+        chargeConfig.data = JSON.stringify(data);
+        return $.ajax(chargeConfig);
+      }
+
+      function getDescription() {
+        return $form.attr("data-stripe-description") ? $form.attr("data-stripe-description") : undefined;
+      }
+
+      function getAmount() {
+        var $amountField = $form.find("input[data-stripe-amount]")
+        var amount = $amountField.length ? $amountField.val() : $form.attr("data-stripe-amount");
+        return _.round(amount, 0) * 100;
+      }
+
+      function getAmountInCents(value) {
+        return _.round(value, 0) * 100;
+      }
+
+      function init() {
+        stripeConfig = _.cloneDeep(config);
+        stripeConfig.token = tokenCreated;
+        stripeInstance = StripeCheckout.configure(stripeConfig);
+
+        registerForm($form)
+      }
+
+      init();
+    }
+
+    $(document).ready(function () {
+      var $singleDonationForm = $("#single-donation-form");
+      var $familyDonationForm = $("#family-donation-form");
+      var $otherDonationForm = $("#other-donation-form");
+
+      stripeConfig = {
         key: "pk_test_Cdnp4m36AXNcBVaZISSFwjZ1",
         image: "/assets/images/lovepacs-checkout-logo.png",
         name: "LovePacs",
         locale: "auto",
-        token: checkoutComplete
-      });
-
-      var $downloadForm = $("#download-form");
-      var $donationForm = $("#donation-form");
-      var $amount = $("#amount");
-      var $donate = $("#donate");
-      var $calculatedAmount = $("#calculated-amount");
-      var $calculatedFeathers = $("#calculated-feathers");
-
-      function getAmount() {
-        return _.round($amount.val(), 0);
-      }
-
-      function calculateFeatherCount(dollarAmount) {
-        return _.ceil(dollarAmount / FEATHER_COST);
-      }
-
-      function getStripeData(amount, token) {
-        var data = {}
-        data.description = CHARGE_DESCRIPTION;
-        data.amount = amount * 100;
-
-        if (token) {
-          data.source = token.id;
-          data.receipt_email = token.email;
-        }
-
-        return data;
-      }
-
-      function submitPayment(token) {
-        var amount = getAmount();
-        var data = getStripeData(amount, token);
-
-        return $.ajax({
-          type: "POST",
+        token: donationComplete,
+        charge: {
           url: "/payment",
+          type: "POST",
           contentType: "application/json",
           dataType: "json",
-          data: JSON.stringify(data)
-        });
-      }
-
-      function displayDownload() {
-        $donationForm.hide();
-        $downloadForm.show();
-      }
-
-      function checkoutComplete(token) {
-        submitPayment(token).then(displayDownload);
-      }
-
-      function paymentDialogClose () {
-        lovepacsStripe.close();
-      }
-
-      function donateClick(e) {
-        var amount = getAmount();
-        var data = getStripeData(amount);
-        lovepacsStripe.open(data);
-        e.preventDefault();
-      }
-
-      function amountChange() {
-        var amount = getAmount();
-        if (amount === $amount.val()) {
-          return;
         }
+      };
 
-        var featherCount = calculateFeatherCount(amount);
-        $calculatedAmount.text(amount);
-        $calculatedFeathers.text(featherCount);
-        $amount.val(amount);
+      stripeForm($singleDonationForm, stripeConfig);
+      stripeForm($familyDonationForm, stripeConfig);
+      stripeForm($otherDonationForm, stripeConfig);
+
+      function donationComplete() {
+        console.log("donation complete");
       }
-
-      function init() {
-        $(window).on("popstate", paymentDialogClose);
-        $amount.on("change", amountChange);
-        $donate.on("click", donateClick);
-        $amount.val(FEATHER_COST);
-        amountChange();
-      }
-
-      init();
     });
   </script>
 </body>
