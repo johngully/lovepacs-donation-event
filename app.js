@@ -1,11 +1,11 @@
 var _ = require("lodash");
 var fs = require("fs");
-var serverConfig = require("../server.json");
+var serverConfig = require("./server.json");
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
-var STRIPE_CONFIG_PATH = "../stripe.json";
+var STRIPE_CONFIG_PATH = "./stripe.json";
 
 // Configure the server
 app.use(bodyParser.json());
@@ -13,7 +13,7 @@ app.use(express.static(serverConfig.staticPath));
 
 // Routes
 app.post("/payment", function (request, response) {
-  var payment = require("../server/payment.js");
+  var payment = require("./server/payment.js");
   payment.charge(request, function(error, charge) {
     if (error) {
       var errorResponse = {
