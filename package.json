@@ -3,11 +3,21 @@
   "description": "Donation event site for lovepacs.org",
   "version": "0.0.1",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johngully/lovepacs-donation-event"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
   "devDependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "lodash": "^3.10.1",
     "stripe": "^4.0.0"
+  },
+  "scripts": {
+    "start": "node ./server/app.js"
   }
 }
