@@ -10,7 +10,7 @@
   "engines": {
     "node": "0.12.x"
   },
-  "devDependencies": {
+  "dependencies": {
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
