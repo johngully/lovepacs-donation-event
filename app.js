@@ -13,7 +13,7 @@ app.use(express.static(serverConfig.staticPath));
 
 // Routes
 app.post("/payment", function (request, response) {
-  var payment = require("./payment.js");
+  var payment = require("./server/payment.js");
   payment.charge(request, function(error, charge) {
     if (error) {
       var errorResponse = {
