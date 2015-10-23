@@ -1,3 +1,6 @@
+console.log("app starting");
+
+var STRIPE_CONFIG_PATH = "./stripe.json";
 var _ = require("lodash");
 var fs = require("fs");
 var serverConfig = require("./server.json");
@@ -5,14 +8,14 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
-var STRIPE_CONFIG_PATH = "./stripe.json";
 
-console.log("app.js - starting");
+// Get configurations
+setupEnvironment();
+console.log(process.env)
 
 // Configure the server
 app.use(bodyParser.json());
-app.use(express.static(serverConfig.staticPath));
-
+app.use(express.static(process.env.STATIC_PATH));
 console.log("express configured");
 
 // Routes
@@ -30,20 +33,23 @@ app.post("/payment", function (request, response) {
   });
 });
 
-function setupStripeEnvironment() {
-  if (!fs.existsSync(STRIPE_CONFIG_PATH)) {
-    return;
+function setupEnvironment() {
+  // Server config
+  _.defaults(process.env, serverConfig);
+
+  // Stripe config
+  if (fs.existsSync(STRIPE_CONFIG_PATH)) {
+    var stripeConfig = require(STRIPE_CONFIG_PATH);
+    _.defaults(process.env, stripeConfig);
   }
 
-  var stripeConfig = require(STRIPE_CONFIG_PATH);
-  _.defaults(process.env, stripeConfig);
+  // Ensure the stripe configurations are present
+  if (!process.env.STRIPE_SERVER_KEY) {
+    throw new Error("STRIPE_SERVER_KEY must be configured for the environment or specified in stripe.json");
+  }
 }
 
-console.log("setupStripeEnvironment");
-setupStripeEnvironment();
-console.log("STRIPE_SERVER_KEY: " + process.env.STRIPE_SERVER_KEY)
-
 // Start the server
-var server = app.listen(serverConfig.port, function () {
+var server = app.listen(process.env.PORT, function () {
   console.log("Server active on port: %s", server.address().port)
 });
