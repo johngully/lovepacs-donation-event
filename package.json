@@ -8,7 +8,7 @@
     "url": "https://github.com/johngully/lovepacs-donation-event"
   },
   "engines": {
-    "node": "0.12.x"
+    "node": "4.1.x"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
