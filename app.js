@@ -7,9 +7,13 @@ var app = express();
 
 var STRIPE_CONFIG_PATH = "./stripe.json";
 
+console.log("app.js - starting");
+
 // Configure the server
 app.use(bodyParser.json());
 app.use(express.static(serverConfig.staticPath));
+
+console.log("express configured");
 
 // Routes
 app.post("/payment", function (request, response) {
@@ -35,8 +39,9 @@ function setupStripeEnvironment() {
   _.defaults(process.env, stripeConfig);
 }
 
+console.log("setupStripeEnvironment");
 setupStripeEnvironment();
-console.log(process.env);
+console.log("STRIPE_SERVER_KEY: " + process.env.STRIPE_SERVER_KEY)
 
 // Start the server
 var server = app.listen(serverConfig.port, function () {
