@@ -6,7 +6,6 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
   <link href='/assets/css/index.css' rel='stylesheet' type='text/css'>
 </head>
@@ -211,7 +210,7 @@
       stripeForm($otherDonationForm, stripeConfig);
 
       function donationComplete() {
-        console.log("donation complete");
+        location.href = "/lovepacs-feather-a-friend.pdf";
       }
     });
   </script>
