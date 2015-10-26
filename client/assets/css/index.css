@@ -74,20 +74,28 @@ h1, h2, h3, h4 {
 }
 
 .footer {
-  margin-top: 100px;
-  padding: 6px;
-  background-color: #B0271A;
-  color: #FFF;
+  margin-top: 75px;
+  padding: 40px 10px 20px 10px;
+  background-color: #CCE174;
+  color: #000;
 }
 
 .footer a, .footer a:hover, .footer a:visited {
-  color: #FFF;
+
   text-decoration: underline;
 }
 
 .footer__center {
 
 }
+
+.footer > div:first-child {
+  text-align: right;
+}
+.footer > div:first-child img {
+  width: 80%;
+}
+
 
 .donate {
   margin-top: 40px;
