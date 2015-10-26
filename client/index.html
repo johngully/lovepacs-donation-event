@@ -4,89 +4,110 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  <link href='/assets/css/index.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="container-fluid">
 
-    <div class="row">
-      <div class="col-xs-2">
-        <img src="http://placehold.it/100x100" />
+    <div class="header row">
+      <div class="header__left col-xs-2">
+
       </div>
-      <div class="col-xs-8 text-center">
+      <div class="header__center col-xs-8 text-center">
+      <img src="assets/images/header-center.png" />
         <h1>Feather a Friend</h1>
       </div>
-      <div class="col-xs-2">
-        <img src="http://placehold.it/100x100" />
+      <div class="header__right col-xs-2">
+
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-12 col-lg-6">
+      <div class="donate col-xs-12 col-lg-6">
 
-        <div class="row">
+        <div class="donate__header row">
           <div class="col-xs-12 text-center">
-            <h2>To share the love (and some food) donate now</h2>
+            <h2>To share the love and some food. Donate now!</h2>
           </div>
         </div>
 
-        <div class="row">
-          <form id="single-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - single child donation" data-stripe-amount="75">
-            <img src="http://placehold.it/175x300" />
-            <button type="submit" class="btn btn-success">$75</button><br />
+        <div class="donate__forms row">
+          <form id="single-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Feather a friend - single child donation" data-stripe-amount="75">
+            <img src="/assets/images/donation-single.png" class="full-width" />
+            <button type="submit" class="btn btn-success btn-block">$75</button>
             <span>Feeds one child</span>
-
           </form>
-          <form id="family-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - family donation" data-stripe-amount="150">
-            <img src="http://placehold.it/175x300" />
-            <button type="submit" class="btn btn-success">$150</button><br />
+          <form id="family-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Feather a friend - family donation" data-stripe-amount="150">
+            <img src="/assets/images/donation-family.png" class="full-width" />
+            <button type="submit" class="btn btn-success btn-block">$150</button>
             <span>Feeds multiple children<br />in the same family</span>
-
           </form>
-          <form id="other-donation-form" class="col-xs-4 text-center" data-stripe-description="Feather a friend - other donation">
-            <img src="http://placehold.it/175x300" />
-            <button type="submit" class="btn btn-success">Other amount</button><br />
+          <form id="other-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Feather a friend - other donation">
+            <img src="/assets/images/donation-other.png" class="full-width" />
+            <button type="submit" class="btn btn-success btn-block">Other amount</button>
             <span>Any gift helps</span>
-            <input type="numeric" pattern="[0-9]*" min="1" step="1" data-stripe-amount></input>
+            <input type="number" pattern="[0-9]*" min="5" step="1" data-stripe-amount class="form-control" placeholder="$5 - $500" required></input>
           </form>
         </div>
 
-        <div class="row">
+        <div class="donate__footer row">
           <div class="col-xs-12 text-center">
-            <h4>Your donation will provide food to local children in the Frisco area who would be at risk of not having enough to eat over the holiday break when the schools are not providing meals.</h4>
+            <h4>Your donation will provide food to local children in the Frisco area who would be at risk of not having enough to eat over the holiday break when the schools are not providing meals.</h4><br />
             <a href="http://www.lovepacs.org/needs.html">Visit the Lovepacs info page to learn more about the needs in Frisco</a>
           </div>
         </div>
       </div>
 
-      <div class="col-xs-12 col-lg-6">
+      <div class="hidden-xs col-lg-1"></div>
+
+      <div class="how-it-works col-xs-12 col-lg-5">
         <h2>How it works</h2>
-        <div>
-          <img src="http://placehold.it/100x100" />
-          Donate in honor of a friend or family member
+        <div class="how-it-works__step row">
+          <div class="col-xs-4 col-sm-2 col-lg-3 col-xl-2">
+            <img src="/assets/images/step-honor.png" class="full-width" />
+          </div>
+          <div class="col-xs-8 col-sm-10 col-lg-9 col-xl-10">Donate in honor of a friend or family member</div>
         </div>
 
-        <div>
-          <img src="http://placehold.it/100x100" />
-          Download and print a turkey and two feathers
+        <div class="how-it-works__step row">
+          <div class="col-xs-4 col-sm-2 col-lg-3 col-xl-2">
+            <img src="/assets/images/step-print.png" class="full-width" />
+          </div>
+          <div class="col-xs-8 col-sm-10 col-lg-9 col-xl-10">Download and print a turkey and two feathers</div>
         </div>
 
-        <div>
-          <img src="http://placehold.it/100x100" />
-          Keep the turkey and attach your feather to remember that special person
+        <div class="how-it-works__step row">
+          <div class="col-xs-4 col-sm-2 col-lg-3 col-xl-2">
+            <img src="/assets/images/step-keep.png" class="full-width" />
+          </div>
+          <div class="col-xs-8 col-sm-10 col-lg-9 col-xl-10">Keep the turkey and attach your feather to remember that special person</div>
         </div>
 
-        <div>
-          <img src="http://placehold.it/100x100" />
-          Take the other feather and give it to your friend along with directions on how to keep sharing the love (and food) this holiday season
+        <div class="how-it-works__step row">
+          <div class="col-xs-4 col-sm-2 col-lg-3 col-xl-2">
+            <img src="/assets/images/step-give.png" class="full-width" />
+          </div>
+          <div class="col-xs-8 col-sm-10 col-lg-9 col-xl-10">Take the other feather and give it to your friend along with directions on how to keep sharing the love (and food) this holiday season</div>
         </div>
 
-        <div>
-          <img src="http://placehold.it/100x100" />
-          Help Lovepacs end hunger for children in the Frisco area while letting your friends know you appreciate them
+        <div class="how-it-works__step row">
+          <div class="col-xs-4 col-sm-2 col-lg-3 col-xl-2">
+            <img src="/assets/images/step-end-hunger.png" class="full-width" />
+          </div>
+          <div class="col-xs-8 col-sm-10 col-lg-9 col-xl-10">Help Lovepacs end hunger for children in the Frisco area while letting your friends know you appreciate them</div>
         </div>
       </div>
     </div>
+
+    <div class="footer row">
+      <div class="footer__center col-xs-12 text-center">
+        <small>Visit <a href="http://www.lovepacs.org">www.lovepacs.org</a> for more information about the charity and how you can help feed hungry children in your local area.</small>
+      </div>
+    </footer>
   </div>
 
 
@@ -111,7 +132,9 @@
 
         // Only display the payment dialog if the
         // charge amount is at least a $1.00
-        if (data.amount >= 100) {
+        if (data.amount < 100) {
+          $form.find("input[data-stripe-amount]").focus();
+        } else {
           stripeInstance.open(data);
         }
 
@@ -144,7 +167,7 @@
       }
 
       function getAmount() {
-        var $amountField = $form.find("input[data-stripe-amount]")
+        var $amountField = $form.find("input[data-stripe-amount]");
         var amount = $amountField.length ? $amountField.val() : $form.attr("data-stripe-amount");
         return _.round(amount, 0) * 100;
       }

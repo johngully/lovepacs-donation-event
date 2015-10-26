@@ -1,0 +1,132 @@
+/*
+$black: #282829;
+$gray: #646567;
+$white: #FFFFFF;
+
+$blonde: #F7F6BD;
+$blonde-dark: #EDE99D;
+$blue: #207398;
+$blue-dark: #19506F;
+$brown: #4B3125;
+$brown-dark: #301910;
+$green: #BAD646;
+$green-dark: #73A742;
+$orange: #F89C27;
+$orange-dark: #F6841F;
+$red: #EF3F28;
+$red-dark: #B0271A;
+$yellow: #FEC14D;
+$yellow-dark: #FDB415;
+*/
+
+/* bootstrap overrides */
+.btn-success {
+  background-color: #F89C27;
+  border-color: #F89C27;
+}
+
+.btn-success:active, .btn-success.active, .btn-success:hover, .btn-success:focus {
+  background-color: #F6841F;
+  border-color: #F6841F;
+}
+
+a, .btn-link {
+  color: #B0271A;
+}
+
+a:active, a:focus, a:hover,
+.btn-link:active, .btn-link:focus, .btn-link:hover {
+  color: #EF3F28;
+}
+
+/* global styles */
+html, body {
+  background-color: #FFFAD7;
+  background-image: url("/assets/images/background.png");
+  font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Handlee', sans-serif;
+  font-weight: bold;
+}
+
+.full-width: {
+  width: 100%;
+}
+
+/* index.html styles */
+.header {
+  margin-top: 15px;
+}
+.header__left {
+
+}
+.header__center {
+
+}
+.header__center > img {
+  max-width: 100%;
+  max-height: 200px;
+}
+.header__right {
+
+}
+
+.footer {
+  margin-top: 100px;
+  padding: 6px;
+  background-color: #B0271A;
+  color: #FFF;
+}
+
+.footer a, .footer a:hover, .footer a:visited {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+.footer__center {
+
+}
+
+.donate {
+  margin-top: 40px;
+}
+
+.donate__header {
+
+}
+
+.donate__forms {
+
+}
+
+.donate__footer {
+  margin-top: 40px;
+}
+
+.donation-form {
+  text-align: center;
+}
+
+.donation-form > img {
+  width: 100%;
+}
+
+.donation-form > .btn {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+.how-it-works {
+  margin-top: 40px;
+}
+
+.how-it-works__step {
+  margin-bottom: 20px;
+}
+
+.how-it-works__step > div > img {
+  width: 100%;
+}
