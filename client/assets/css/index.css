@@ -110,11 +110,12 @@ h1, h2, h3, h4 {
 }
 
 .donate__footer {
-  margin-top: 40px;
+
 }
 
 .donation-form {
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .donation-form > img {
