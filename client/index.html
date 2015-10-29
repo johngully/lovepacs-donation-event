@@ -121,7 +121,7 @@
       var stripeConfig;
 
       function registerForm($form) {
-        $form.on("submit", displayCheckoutDialog);
+        $form.find("button[type=submit]").on("click", displayCheckoutDialog);
       }
 
       function displayCheckoutDialog(e) {
