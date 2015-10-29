@@ -44,6 +44,7 @@ html, body {
   background-color: #FFFAD7;
   background-image: url("/assets/images/background.png");
   font-family: 'Raleway', sans-serif;
+  height: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -81,7 +82,6 @@ h1, h2, h3, h4 {
 }
 
 .footer a, .footer a:hover, .footer a:visited {
-
   text-decoration: underline;
 }
 
@@ -138,4 +138,47 @@ h1, h2, h3, h4 {
 
 .how-it-works__step > div > img {
   width: 100%;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.9);
+  color: #FFF;
+}
+
+.overlay__content {
+  display: block;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+  margin-top: -150px;
+  font-size: 20pt;
+  color: white;
+}
+
+.overlay__content .header-image {
+  height: 200px;
+}
+
+.overlay__content a, .overlay__content a:active, .overlay__content a:hover, .overlay__content a:visited {
+  color: white
+}
+
+.overlay__content--processing {
+  display: none;
+}
+.overlay__content--complete {
+  display: none;
+}
+
+.icon-download {
+  width: 40px;
+  margin-right: 10px;
+  margin-bottom: 7px;
 }
