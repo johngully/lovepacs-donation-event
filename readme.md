@@ -24,4 +24,6 @@ For a more permanent solution you can add these to your environment variables by
 $ nano .bash_profile
 export STRIPE_PUBLIC_KEY="XXXXX"
 export STRIPE_SERVER_KEY="YYYYY"
+export STRIPE_PUBLIC_KEY_TEST="XXXXX"
+export STRIPE_SERVER_KEY_TEST="YYYYY"
 ```

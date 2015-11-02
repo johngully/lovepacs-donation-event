@@ -122,10 +122,10 @@
     </div>
   </div>
 
-
-  <script src="https://checkout.stripe.com/checkout.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 
   <script>
     function stripeForm ($form, config) {
@@ -206,13 +206,19 @@
     }
 
     $(document).ready(function () {
+      setTestModeCookie();
+      var testMode = getTestMode();
+
       var tokenCreated = false;
       var $singleDonationForm = $("#single-donation-form");
       var $familyDonationForm = $("#family-donation-form");
       var $otherDonationForm = $("#other-donation-form");
+      var stripeKeyLive = "pk_live_9pmNb8EVoamUQMKtvAYuorm5";
+      var stripeKeyTest = "pk_test_Cdnp4m36AXNcBVaZISSFwjZ1";
+      var stripeKey = testMode ? stripeKeyTest : stripeKeyLive;
 
       stripeConfig = {
-        key: "pk_test_Cdnp4m36AXNcBVaZISSFwjZ1",
+        key: stripeKey,
         image: "/assets/images/lovepacs-checkout-logo.png",
         name: "LovePacs",
         locale: "auto",
@@ -228,9 +234,28 @@
         }
       };
 
+      if (testMode) {
+        console.log("Starting test mode");
+        console.log("stripeConfig: ");
+        console.log(stripeConfig);
+      }
+
       stripeForm($singleDonationForm, stripeConfig);
       stripeForm($familyDonationForm, stripeConfig);
       stripeForm($otherDonationForm, stripeConfig);
+
+      function setTestModeCookie() {
+        // set the testMode based upon the presence of ?mode=test in the querystring
+        if (window.location.search.indexOf("mode=test") > -1) {
+          Cookies.set("mode", "test");
+        } else {
+          Cookies.remove("mode");
+        }
+      }
+
+      function getTestMode() {
+        return Cookies.get("mode") === "test";
+      }
 
       function trackSuccess() {
         tokenCreated = true;
