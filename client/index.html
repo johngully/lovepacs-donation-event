@@ -294,6 +294,9 @@
 
       function sendAnalyticsEvent(category, action, label, value) {
         label = label || "Feather a friend";
+        if (testMode) {
+          label = label + " - Test";
+        }
         ga('send', 'event', category, action, label, value);
       }
     });
