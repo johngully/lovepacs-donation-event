@@ -165,7 +165,7 @@
       function tokenCreated(token) {
         // Call the success callback if configured
         if (config.success) {
-          config.success();
+          config.success(getAmount());
         }
         // Call the submit payment process
         // then call the original callback
@@ -266,10 +266,11 @@
         return Cookies.get("mode") === "test";
       }
 
-      function trackSuccess() {
+      function trackSuccess(amount) {
         tokenCreated = true;
         $(".overlay__content--processing").show();
-        sendAnalyticsEvent("Donation", "Success");
+        amount = amount/100;
+        sendAnalyticsEvent("Donation", "Success", "", amount);
       }
 
       function hideOverlay() {
