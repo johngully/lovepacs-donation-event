@@ -8,6 +8,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var app = express();
+var payment = require("./server/payment.js");
 
 
 // Get configurations
@@ -22,16 +23,24 @@ console.log("express configured");
 
 // Routes
 app.post("/payment", function (request, response) {
-  var payment = require("./server/payment.js");
   payment.charge(request, function(error, charge) {
+    var content = error ? "There was an error processing the payment" : undefined;
+    var status = error ? 500 : 204;
+    response.sendStatus(status, content);
+  });
+});
+
+app.post("/subscription", function (request, response) {
+  payment.subscription(request, function(error, charge) {
+    var content = error ? "There was an error processing the subscription" : undefined;
+    var status = error ? 500 : 204;
+
     if (error) {
-      var errorResponse = {
-        message: "There was an error processing the payment"
-      }
-      response.sendStatus(500, errorResponse);
-    } else {
-      response.sendStatus(204);
+      console.log("Subscription Error:");
+      console.log(error);
     }
+
+    response.sendStatus(status, content);
   });
 });
 

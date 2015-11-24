@@ -96,6 +96,7 @@
       stripeConfig.closed = hideOverlay;
       stripeConfig.success = trackSuccess;
       stripeConfig.token = showDownload;
+      stripeConfig.data = {};
 
       if (testMode) {
         console.log("Starting test mode");
@@ -108,8 +109,9 @@
       stripeForm($("#other-donation-form"), stripeConfig);
 
       var subscriptionStripeConfig = _.cloneDeep(stripeConfig);
-      subscriptionStripeConfig
-      stripeForm($("#subscription-donation-form"), stripeConfig);
+      subscriptionStripeConfig.charge.url = "/subscription";
+      subscriptionStripeConfig.data.plan = "angel-plan";
+      stripeForm($("#subscription-donation-form"), subscriptionStripeConfig);
 
       function trackSuccess(amount) {
         tokenCreated = true;

@@ -1,6 +1,11 @@
 function stripeForm ($form, config) {
   var stripeInstance;
   var stripeConfig;
+  var postConfig = {
+    type: "POST",
+    contentType: "application/json",
+    dataType: "json"
+  };
 
   function registerForm($form) {
     $form.find("button[type=submit]").on("click", displayCheckoutDialog);
@@ -33,21 +38,39 @@ function stripeForm ($form, config) {
     submitPayment(token).then(config.token);
   }
 
-  function submitPayment(token) {
-    var chargeConfig = _.defaults(stripeConfig.charge, {
-      type: "POST",
-      contentType: "application/json",
-      dataType: "json",
-    });
-    var data = {
+  function getChargeData(token) {
+    return {
       description: getDescription(),
       amount: getAmount(),
       source: token.id,
       receipt_email: token.email
     };
+  }
 
-    chargeConfig.data = JSON.stringify(data);
-    return $.ajax(chargeConfig);
+  function getSubscriptionData(token) {
+    return {
+      description: getDescription(),
+      source: token.id,
+      email: token.email
+    };
+  }
+
+  function submitPayment(token) {
+    var data;
+    var paymentConfig = _.defaults(stripeConfig.charge, postConfig);
+
+    switch (paymentConfig.url) {
+      case "/subscription":
+        data = getSubscriptionData(token);
+        break;
+      case "/payment":
+      default:
+        data = getChargeData(token);
+        break;
+    }
+
+    paymentConfig.data = JSON.stringify(_.defaults(stripeConfig.data, data));
+    return $.ajax(paymentConfig);
   }
 
   function getDescription() {
