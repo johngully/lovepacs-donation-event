@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  <link href='/assets/css/shared.css' rel='stylesheet' type='text/css'>
+  <link href='/assets/css/index.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div class="container-fluid">
+
+    <div class="header row">
+      <div class="header__left col-xs-2">
+
+      </div>
+      <div class="header__center col-xs-8 text-center">
+      <img src="/assets/images/header-center.png" />
+        <h1>Feather a Friend</h1>
+      </div>
+      <div class="header__right col-xs-2">
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="donate col-xs-12 col-lg-6">
+
+        <div class="donate__header row">
+          <div class="col-xs-12 text-center">
+            <h2>To share the love <br class="hidden-sm-up" />and some food. <br class="hidden-lg-up" />Donate now!</h2>
+          </div>
+        </div>
+
+        <div class="donate__forms row">
+          <form id="subscription-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - subscription donation" data-stripe-amount="50">
+            <img src="/assets/images/donation-single.png" class="full-width" />
+            <button type="submit" class="btn btn-success "><strong>$25</strong> Reoccuring donation</button><br />
+            <span>Angel</span>
+          </form>
+          <form id="single-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - single child donation" data-stripe-amount="50">
+            <img src="/assets/images/donation-single.png" class="full-width" />
+            <button type="submit" class="btn btn-success "><strong>$50</strong> Donation</button><br />
+            <span>Feeds one child</span>
+          </form>
+          <form id="family-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - family donation" data-stripe-amount="75">
+            <img src="/assets/images/donation-family.png" class="full-width" />
+            <button type="submit" class="btn btn-success "><strong>$75</strong> Donation</button><br />
+            <span>Feeds multiple children<br />in the same family</span>
+          </form>
+          <form id="other-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - other donation">
+            <img src="/assets/images/donation-other.png" class="full-width" />
+            <button type="submit" class="btn btn-success ">Other Donation</button><br />
+            <span>Any gift helps</span>
+            <input type="number" pattern="[0-9]*" min="5" step="1" data-stripe-amount class="form-control" placeholder="$5 - $500" required></input>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="footer row">
+      <div class="col-xs-12"><a href="www.lovepacs.org">LovePacs</a> exists to be an expression of God's love by engaging communities to serve children in need. We strive to make sure no child goes hungry while on breaks from school.</div>
+    </footer>
+  </div>
+
+  <div class="overlay">
+    <div class="overlay__content">
+      <div class="overlay__content--processing">Processing ...</div>
+      <div class="overlay__content--complete">Complete ...</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+  <script src="/scripts/analytics-utils.js"></script>
+  <script src="/scripts/stripe-form.js"></script>
+  <script src="/scripts/utils.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      setTestModeCookie();
+      var testMode = getTestMode();
+      initializeGoogleAnalytics();
+
+      var tokenCreated = false;
+      var stripeConfig = initializeStripeConfig(testMode);
+      stripeConfig.image = "/assets/images/lovepacs-checkout-logo.png";
+      stripeConfig.opened = showOverlay;
+      stripeConfig.closed = hideOverlay;
+      stripeConfig.success = trackSuccess;
+      stripeConfig.token = showDownload;
+
+      if (testMode) {
+        console.log("Starting test mode");
+        console.log("stripeConfig: ");
+        console.log(stripeConfig);
+      }
+
+      stripeForm($("#single-donation-form"), stripeConfig);
+      stripeForm($("#family-donation-form"), stripeConfig);
+      stripeForm($("#other-donation-form"), stripeConfig);
+
+      var subscriptionStripeConfig = _.cloneDeep(stripeConfig);
+      subscriptionStripeConfig
+      stripeForm($("#subscription-donation-form"), stripeConfig);
+
+      function trackSuccess(amount) {
+        tokenCreated = true;
+        $(".overlay__content--processing").show();
+        amount = amount/100;
+        sendAnalyticsEvent("Winter Donation", "Success", "", amount);
+      }
+
+      function hideOverlay() {
+        // Only hide the overlay if the user closed the dialog
+        if (!tokenCreated) {
+          $(".overlay").hide();
+          sendAnalyticsEvent("Winter Donation", "Cancelled");
+        }
+      }
+      function showOverlay() {
+        $(".overlay").show();
+        sendAnalyticsEvent("Winter Donation", "Creditcard form displayed");
+      }
+
+      function showDownload() {
+        $(".overlay").show();
+        $(".overlay__content--processing").hide();
+        $(".overlay__content--complete").show();
+        sendAnalyticsEvent("Winter Donation", "Complete");
+      }
+    });
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src='//www.google-analytics.com/analytics.js'></script>
+  <!-- End Google Analytics -->
+</body>
+</html>
