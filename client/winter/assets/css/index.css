@@ -1,0 +1,90 @@
+body {
+  background-color: #35B1BE;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  color: #FFFFFF;
+}
+
+h1 {
+  font-family: "Butterfly Kids", cursive;
+  font-size: 50px;
+  /*
+  font-family: "Annie Use Your Telescope", cursive;
+  font-family: "Sacramento", cursive;
+  */
+}
+
+a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.be-an-angel {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+
+  background-image: url("../images/snow-background.png");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  padding-bottom: 115px;
+}
+
+.be-an-angel__description > img {
+  height: 350px;
+}
+
+.be-an-angel__donation {
+  min-width: 300px;
+  padding-top: 75px;
+  padding-bottom: 50px
+}
+
+.be-an-angel__donation button {
+  background-color: #FFFFFF;
+  color: #333333;
+}
+
+.adopt-a-box {
+  background-color: #FFFFFF;
+  color: #333333;
+
+  padding-top: 25px;
+  padding-bottom: 100px;
+}
+
+.adopt-a-box__description {
+  background-image: url("../images/adopt-a-box-signage.png");
+  background-position: top center;
+  background-repeat: no-repeat;
+  min-height: 317px;
+  width: 358px;
+  padding: 35px 25px 0px 25px;
+
+}
+
+.adopt-a-box__donation .donation-form {
+  text-align: center;
+}
+
+.adopt-a-box__donation .donation-form > input {
+  min-width: 147px;
+}
+
+.adopt-a-box__donation .donation-form .btn {
+  margin: 20px 0px;
+  background-color: #FFDE17;
+  border-color: #FFDE17;
+}
+
+.adopt-a-box__donation .vertical-spacing {
+  margin-top: 60px;
+}
+
+.footer {
+  padding: 20px 0px;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}

@@ -4,67 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Sacramento' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Butterfly+Kids' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
   <link href='/assets/css/shared.css' rel='stylesheet' type='text/css'>
-  <link href='/assets/css/index.css' rel='stylesheet' type='text/css'>
+  <link href='./assets/css/index.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="container-fluid">
 
-    <div class="header row">
-      <div class="header__left col-xs-2">
-
-      </div>
-      <div class="header__center col-xs-8 text-center">
-      <img src="/assets/images/header-center.png" />
-        <h1>Feather a Friend</h1>
-      </div>
-      <div class="header__right col-xs-2">
-
+    <div class="be-an-angel row">
+      <div class="container">
+        <div class="be-an-angel__description col-xs-12 col-md-push-7 col-md-5 col-lg-push-6 col-lg-4">
+          <img src="./assets/images/angel.png" />
+        </div>
+        <div class="col-xs-12 col-md-pull-3 col-md-5 col-lg-pull-2 col-lg-5">
+          <form id="subscription-donation-form" class="be-an-angel__donation donation-form" data-stripe-description="Be an Angel - subscription">
+            <h1>Be an Angel</h1>
+            <p>$25 a month will feed two families for<br/>Thanksgiving, Christmas &amp; spring break.</p>
+            <button type="submit" class="btn">Donate $25 a month</button><br />
+          </form>
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="donate col-xs-12 col-lg-6">
-
-        <div class="donate__header row">
-          <div class="col-xs-12 text-center">
-            <h2>To share the love <br class="hidden-sm-up" />and some food. <br class="hidden-lg-up" />Donate now!</h2>
+    <div class="adopt-a-box row">
+      <div class="container">
+        <div class="col-xs-12 col-md-push-7 col-md-5 col-lg-push-6 col-lg-6">
+          <div class="adopt-a-box__description col-centered">
+            <h1 class="text-center">Adopt a Box</h1>
+            <p>$75 feeds a family with multiple children</p>
+            <p>$50 feeds a single child over winter break</p>
+            <p>Other donations are always appreciated.<br />No matter how big or small, every bit helps.</p>
           </div>
         </div>
 
-        <div class="donate__forms row">
-          <form id="subscription-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - subscription donation" data-stripe-amount="50">
-            <img src="/assets/images/donation-single.png" class="full-width" />
-            <button type="submit" class="btn btn-success "><strong>$25</strong> Reoccuring donation</button><br />
-            <span>Angel</span>
-          </form>
-          <form id="single-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - single child donation" data-stripe-amount="50">
-            <img src="/assets/images/donation-single.png" class="full-width" />
-            <button type="submit" class="btn btn-success "><strong>$50</strong> Donation</button><br />
-            <span>Feeds one child</span>
-          </form>
-          <form id="family-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - family donation" data-stripe-amount="75">
-            <img src="/assets/images/donation-family.png" class="full-width" />
-            <button type="submit" class="btn btn-success "><strong>$75</strong> Donation</button><br />
-            <span>Feeds multiple children<br />in the same family</span>
-          </form>
-          <form id="other-donation-form" class="donation-form col-xs-12 col-sm-4 text-center" data-stripe-description="Winter - other donation">
-            <img src="/assets/images/donation-other.png" class="full-width" />
-            <button type="submit" class="btn btn-success ">Other Donation</button><br />
-            <span>Any gift helps</span>
-            <input type="number" pattern="[0-9]*" min="5" step="1" data-stripe-amount class="form-control" placeholder="$5 - $500" required></input>
-          </form>
+        <div class="adopt-a-box__donation col-xs-12 col-md-pull-5 col-md-7 col-lg-pull-6 col-lg-6">
+          <div class="row vertical-spacing">
+            <form id="family-donation-form" class="donation-form col-xs-12 col-md-4" data-stripe-amount="75" data-stripe-description="Adopt a Box - family donation">
+              <img src="./assets/images/donation-family.png"><br />
+              <button type="submit" class="btn">$75 Donation</button>
+            </form>
+            <form id="single-donation-form" class="donation-form col-xs-12 col-md-4" data-stripe-amount="50" data-stripe-description="Adopt a Box - single child donation">
+              <img src="./assets/images/donation-single.png"><br />
+              <button type="submit" class="btn">$50 Donation</button>
+            </form>
+            <form id="other-donation-form" class="donation-form col-xs-12 col-md-4" data-stripe-description="Adopt a Box - other donation">
+              <img src="./assets/images/donation-other.png"><br />
+              <button type="submit" class="btn hidden-sm-down">Other Donation</button>
+              <input type="number" pattern="[0-9]*" min="5" step="1" data-stripe-amount class="form-control" placeholder="$5 - $500" required></input>
+              <button type="submit" class="btn hidden-md-up col-xs-12">Other Donation</button>
+            </form>
+          </div>
         </div>
-
       </div>
+    </div>
 
     </div>
 
     <div class="footer row">
-      <div class="col-xs-12"><a href="www.lovepacs.org">LovePacs</a> exists to be an expression of God's love by engaging communities to serve children in need. We strive to make sure no child goes hungry while on breaks from school.</div>
+      <div class="container">
+        <div class="col-xs-12"><a href="www.lovepacs.org">Lovepacs</a> exists to be an expression of God's love by engaging communities to serve children in need. We strive to make sure no child goes hungry while on breaks from school.</div>
+      </div>
     </footer>
   </div>
 
