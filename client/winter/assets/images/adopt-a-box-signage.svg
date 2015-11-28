@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="358px" height="317px" viewBox="0 0 358 317" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.1 (15681) - http://www.bohemiancoding.com/sketch -->
+    <title>Signage</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Signage" sketch:type="MSLayerGroup" transform="translate(0.272697, 0.459134)">
+            <path d="M54.299529,215.780032 L67.2955593,215.780032 L67.2955593,313.220421 L60.7975442,315.265846 L54.299529,215.780032 Z" id="Path-330" stroke="#979797" fill="#666666" sketch:type="MSShapeGroup"></path>
+            <path d="M285.383765,215.432413 L272.419393,216.369994 L278.848013,312.513921 L285.611729,315.144675 L285.383765,215.432413 L285.383765,215.432413 Z" id="Path-330" stroke="#979797" fill="#666666" sketch:type="MSShapeGroup"></path>
+            <path d="M0.3490056,25.2825833 L357.167129,0.209947079 L348.999097,238.942235 L6.31678459,243.320351 L0.3490056,25.2825833 Z" id="Path-328" fill="#AAAAAA" sketch:type="MSShapeGroup"></path>
+            <path d="M11.4478172,34.3507948 L345.522047,11.6350002 L337.874653,227.926321 L17.0352049,231.892892 L11.4478172,34.3507948 Z" id="Path-328" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

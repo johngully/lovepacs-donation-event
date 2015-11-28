@@ -24,24 +24,20 @@ console.log("express configured");
 // Routes
 app.post("/payment", function (request, response) {
   payment.charge(request, function(error, charge) {
-    var content = error ? "There was an error processing the payment" : undefined;
+    var content = error ? "There was an error processing the payment" : request.body.description;
     var status = error ? 500 : 204;
-    response.sendStatus(status, content);
+    //response.status(status).send(content);
   });
+  response.send(request.body);
 });
 
 app.post("/subscription", function (request, response) {
   payment.subscription(request, function(error, charge) {
-    var content = error ? "There was an error processing the subscription" : undefined;
+    var content = error ? "There was an error processing the subscription" : request.body.description;
     var status = error ? 500 : 204;
-
-    if (error) {
-      console.log("Subscription Error:");
-      console.log(error);
-    }
-
-    response.sendStatus(status, content);
+    //response.status(status).send(content);
   });
+  response.send(request.body);
 });
 
 function setupEnvironment() {

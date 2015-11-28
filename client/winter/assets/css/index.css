@@ -39,6 +39,10 @@ a {
   padding-bottom: 50px
 }
 
+.be-an-angel__donation h1 {
+  font-size: 60px;
+}
+
 .be-an-angel__donation button {
   background-color: #FFFFFF;
   color: #333333;
@@ -81,10 +85,14 @@ a {
 }
 
 .footer {
-  padding: 20px 0px;
+  padding: 30px 0px;
 }
 
 .col-centered {
     float: none;
     margin: 0 auto;
+}
+
+.overlay__content--complete > div {
+  display: none;
 }

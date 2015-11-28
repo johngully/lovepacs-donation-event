@@ -16,7 +16,6 @@
   top: 50%;
   width: 100%;
   margin-top: -150px;
-  font-size: 20pt;
   color: white;
 }
 
@@ -33,6 +32,10 @@
 }
 .overlay__content--complete {
   display: none;
+  position: absolute;
+  left: 50%;
+  width: 360px;
+  margin-left: -180px
 }
 
 .icon-download {

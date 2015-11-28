@@ -18,12 +18,12 @@
     <div class="be-an-angel row">
       <div class="container">
         <div class="be-an-angel__description col-xs-12 col-md-push-7 col-md-5 col-lg-push-6 col-lg-4">
-          <img src="./assets/images/angel.png" />
+          <img src="./assets/images/angel.svg" />
         </div>
         <div class="col-xs-12 col-md-pull-3 col-md-5 col-lg-pull-2 col-lg-5">
           <form id="subscription-donation-form" class="be-an-angel__donation donation-form" data-stripe-description="Be an Angel - subscription">
             <h1>Be an Angel</h1>
-            <p>$25 a month will feed two families for<br/>Thanksgiving, Christmas &amp; spring break.</p>
+            <p>$25 a month will feed up to 8 children<br/>in the North Dallas area over the<br/>Thanksgiving, Christmas &amp; spring break.</p>
             <button type="submit" class="btn">Donate $25 a month</button><br />
           </form>
         </div>
@@ -73,8 +73,29 @@
 
   <div class="overlay">
     <div class="overlay__content">
-      <div class="overlay__content--processing">Processing ...</div>
-      <div class="overlay__content--complete">Complete ...</div>
+      <div class="overlay__content--processing"><h2>Processing ...</h2></div>
+      <div class="overlay__content--complete">
+        <div id="subscription-donation-success">
+          <img src="./assets/images/angel.svg" style="height: 200px;" /><br/>
+          <h2>You're an angel!</h2>
+          <p>Your ongoing contribution will feed<br />hungry children throughout the year.<p>
+        </div>
+        <div id="family-donation-success">
+          <img src="./assets/images/donation-family.png" /><br/>
+          <h2>Thanks for adopting a box</h2>
+          <p>Your generous contribution will feed<br />a family of children over the winter break</p>
+        </div>
+        <div id="single-donation-success">
+          <img src="./assets/images/donation-single.png" /><br/>
+          <h2>Thanks for adopting a box</h2>
+          <p>Your generous contribution will feed<br />a child in need over the winter break</p>
+        </div>
+        <div id="other-donation-success">
+          <img src="./assets/images/donation-other.png" /><br/>
+          <h2>Thanks for adopting a box</h2>
+          <p>Your generous contribution will help feed<br />hungry children over the winter break!</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -94,11 +115,11 @@
 
       var tokenCreated = false;
       var stripeConfig = initializeStripeConfig(testMode);
-      stripeConfig.image = "/assets/images/lovepacs-checkout-logo.png";
+      stripeConfig.image = "./assets/images/lovepacs-checkout-logo.svg";
       stripeConfig.opened = showOverlay;
       stripeConfig.closed = hideOverlay;
       stripeConfig.success = trackSuccess;
-      stripeConfig.token = showDownload;
+      stripeConfig.token = showComplete;
       stripeConfig.data = {};
 
       if (testMode) {
@@ -135,7 +156,22 @@
         sendAnalyticsEvent("Winter Donation", "Creditcard form displayed");
       }
 
-      function showDownload() {
+      function showComplete(response) {
+        switch(response.description) {
+          case $("#subscription-donation-form").attr("data-stripe-description"):
+            $("#subscription-donation-success").show();
+            break;
+          case $("#family-donation-form").attr("data-stripe-description"):
+            $("#family-donation-success").show();
+            break;
+          case $("#single-donation-form").attr("data-stripe-description"):
+            $("#single-donation-success").show();
+            break;
+          case $("#other-donation-form").attr("data-stripe-description"):
+          default:
+            $("#other-donation-success").show();
+            break;
+        }
         $(".overlay").show();
         $(".overlay__content--processing").hide();
         $(".overlay__content--complete").show();
